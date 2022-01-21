@@ -19,7 +19,7 @@ gev.pplikMinima <- function(x, theta, z0, p0) {
   return(l)
 }
 
-gev.pprofMinima <- function(x, theta0, z0, p.low, p.up, nint, pplot=0) {
+gev.pprofMinima <- function(x, theta0, z0, p.low, p.up, nint = 1000, conf = 0.95, pplot = 0) {
   l <- numeric(nint)
   p <- seq(p.low, p.up, length = nint)
   
@@ -40,7 +40,7 @@ gev.pprofMinima <- function(x, theta0, z0, p.low, p.up, nint, pplot=0) {
   plik.max <- max(-l)
   
   # quantile of chi-square
-  q <- plik.max - 0.5 * qchisq(0.95, 1)
+  q <- plik.max - 0.5 * qchisq(conf, 1)
   
   # find  the  index  of -q in l for lower bound (LB) and upper bound (UB)
   plik.lb <- l[l <= -q ][1] ## bigger values
@@ -57,7 +57,7 @@ gev.pprofMinima <- function(x, theta0, z0, p.low, p.up, nint, pplot=0) {
   if (pplot){
     plot(p,  - l, type="l", xlab = "Probability", ylab = 
            " Profile Log-likelihood")
-    abline(h = plik.max - 0.5 * qchisq(0.95, 1), col = "red")
+    abline(h = plik.max - 0.5 * qchisq(conf, 1), col = "red")
     abline(h = plik.max, col = 4)
     abline(v=ci.lb, col="red")
     abline(v=ci.ub, col="red")
