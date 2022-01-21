@@ -22,6 +22,7 @@ gev.pplikMinima <- function(x, theta, z0, p0) {
 gev.pprofMinima <- function(x, theta0, z0, p.low, p.up, nint = 1000, conf = 0.95, pplot = 0) {
   l <- numeric(nint)
   p <- seq(p.low, p.up, length = nint)
+  theta0 <- theta0[2:3]
   
   # optimizing algorithm for the parameters
   for(i in 1:nint) {
